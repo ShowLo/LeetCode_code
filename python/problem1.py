@@ -8,7 +8,9 @@
         length = len(nums);
         differDict = {};
         for i in range(length):
-            if differDict.get(nums[i]) == None:
-                differDict[target - nums[i]] = i;
+            num = nums[i];
+            item = differDict.get(num);
+            if item == None:
+                differDict[target - num] = i;
             else:
-                return [differDict[nums[i]],i];
+                return [item,i];
