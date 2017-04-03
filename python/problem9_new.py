@@ -13,7 +13,7 @@
         while x:
             left = x // digit;
             right = x % 10;
-            if left != right:
+            if left != right:		#逐数字比较，不符合回文要求直接返回
                 return False;
             x -= left * digit;
             x = x // 10;
