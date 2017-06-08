@@ -1,0 +1,52 @@
+﻿/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+public class Solution 
+{
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2)
+    {
+        ListNode result = l1;
+        if(l1 == null)                  //链表1为空的话直接返回链表2
+            return l2;
+        if(l2 == null)                  //链表2为空的话直接返回链表1
+            return l1;
+        if(l1.val < l2.val)             //结果链表的头节点为两链表头节点中值较小的那个
+        {
+            result = l1;
+            l1 = l1.next;
+        }
+        else
+        {
+            result = l2;
+            l2 = l2.next;
+        }
+        ListNode node = result;
+        
+        while(l1 != null && l2 != null) //在l1和l2均不遍历完的情况下
+        {
+            if(l1.val < l2.val)         //l1对应的值较小
+            {
+                node.next = l1;         //加入到整合链表
+                node = node.next;
+                l1 = l1.next;           //后移
+            }
+            else                        //l2对应的值较小
+            {
+                node.next = l2;
+                node = node.next;
+                l2 = l2.next;
+            }
+        }
+        if(l1 != null)                  //l1未遍历完的话再将其加入整合链表
+            node.next = l1;
+        if(l2 != null)                  //l2未遍历完的话再将其加入整合链表
+            node.next = l2;
+            
+        return result;
+    }
+}
