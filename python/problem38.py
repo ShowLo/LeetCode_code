@@ -1,28 +1,33 @@
-class Solution(object):
-    def combinationSum2(self, candidates, target):
-        """
-        :type candidates: List[int]
-        :type target: int
-        :rtype: List[List[int]]
-        """
-        candidates.sort()
-        result = []
-        out = []
-        resultSet = set()
-        def recursion(index, result, out, candidates, target):
-            cLen = len(candidates)
-            for i in range(index, cLen):
-                num = candidates[i]
-                if num == target:
-                    out.append(num)
-                    if out not in result:
-                        result.append(out)
-                    break
-                elif num < target:
-                    temp = [r for r in out]
-                    temp.append(num)
-                    recursion(i + 1, result, temp, candidates, target - num)
-                else:
-                    break
-        recursion(0, result, out, candidates, target)
-        return result
+﻿public class Solution {
+    public String countAndSay(int n) {
+        if (n == 1) {
+            return "1";
+        }
+        return countPrev(countAndSay(n - 1));
+    }
+
+    private String countPrev(String s) {
+        int length = s.length();
+        if (length == 1) {
+            return ("1" + s.charAt(0));
+        }
+        StringBuilder sb = new StringBuilder("");
+        int count = 1;
+        for (int i = 1; i < length; ++i) {
+            if (s.charAt(i) != s.charAt(i - 1)) {
+                sb.append(count).append(s.charAt(i - 1));
+                count = 1;
+                if (i == length - 1) {
+                    sb.append("1").append(s.charAt(length - 1));
+                }
+            }
+            else {
+                ++count;
+                if (i == length - 1) {
+                    sb.append(count).append(s.charAt(i));
+                }
+            }
+        }
+        return sb.toString();
+    }
+}
