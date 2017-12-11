@@ -1,29 +1,23 @@
 ﻿class Solution(object):
-    def searchMatrix(self, matrix, target):
+    def sortColors(self, nums):
         """
-        :type matrix: List[List[int]]
-        :type target: int
-        :rtype: bool
+        :type nums: List[int]
+        :rtype: void Do not return anything, modify nums in-place instead.
         """
-        row = len(matrix)
-        if row == 0:
-            return False
-        col = len(matrix[0])
-        if col == 0:
-            return False
-        targetRow = -1
-        for i in range(row):
-            if matrix[i][0] > target:
-                targetRow = i - 1
-                break
-            elif matrix[i][col - 1] >= target:
-                targetRow = i
-                break
-        if targetRow == -1:
-            return False
-        for i in range(col):
-            if matrix[targetRow][i] == target:
-                return True
-            elif matrix[targetRow][i] > target:
-                return False
-        return False
+        num0 = 0
+        num1 = 0
+        num2 = 0
+        for num in nums:
+            if num == 0:
+                num0 += 1
+            elif num == 1:
+                num1 += 1
+            else:
+                num2 += 1
+        for i in range(num0 + num1 + num2):
+            if i < num0:
+                nums[i] = 0
+            elif i < num0 + num1:
+                nums[i] = 1
+            else:
+                nums[i] = 2

@@ -1,24 +1,29 @@
 ﻿class Solution(object):
-    def setZeroes(self, matrix):
+    def searchMatrix(self, matrix, target):
         """
         :type matrix: List[List[int]]
-        :rtype: void Do not return anything, modify matrix in-place instead.
+        :type target: int
+        :rtype: bool
         """
         row = len(matrix)
+        if row == 0:
+            return False
         col = len(matrix[0])
-        colMark = set()
+        if col == 0:
+            return False
+        targetRow = -1
         for i in range(row):
-            for j in range(col):
-                if matrix[i][j] == 0:
-                    colMark.add(j)
-                    for c in range(j):
-                        matrix[i][c] = 0
-                    for c in range(j + 1, col):
-                        if matrix[i][c] == 0:
-                            colMark.add(c)
-                        else:
-                            matrix[i][c] = 0
-                    break
-        for c in colMark:
-            for r in range(row):
-                matrix[r][c] = 0
+            if matrix[i][0] > target:
+                targetRow = i - 1
+                break
+            elif matrix[i][col - 1] >= target:
+                targetRow = i
+                break
+        if targetRow == -1:
+            return False
+        for i in range(col):
+            if matrix[targetRow][i] == target:
+                return True
+            elif matrix[targetRow][i] > target:
+                return False
+        return False
