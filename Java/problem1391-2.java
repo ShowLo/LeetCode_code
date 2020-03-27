@@ -1,11 +1,8 @@
 class Solution {
-    private final int TOP = 0;
-    private final int RIGHT = 1;
-    private final int BOTTOM = 2;
-    private final int LEFT = 3;
     // 表示各个方向的x, y坐标变化值
     private final int[][] DIRECTIONS = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
-    private final int[][] STREETS = {{-1, -1}, {RIGHT, LEFT}, {TOP, BOTTOM}, {BOTTOM, LEFT}, {RIGHT, BOTTOM}, {TOP, LEFT}, {TOP, RIGHT}};
+    //TOP - 0, RIGHT - 1, BOTTOM - 2, LEFT - 3
+    private final int[][] STREETS = {{-1, -1}, {1, 3}, {0, 2}, {2, 3}, {1, 2}, {0, 3}, {0, 1}};
     
     public boolean hasValidPath(int[][] grid) {
         int m = grid.length;
@@ -15,7 +12,7 @@ class Solution {
         }
         //从0,0处出发
         for (int direction : STREETS[grid[0][0]]) {
-            if (direction == RIGHT || direction == BOTTOM) {
+            if (direction == 1 || direction == 2) {
                 boolean[][] visited = new boolean[m][n];
                 int i = 0, j = 0;
                 int currentDir = direction;
