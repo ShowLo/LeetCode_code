@@ -28,8 +28,7 @@ class Solution {
                     if (i < 0 || j < 0 || i >= m || j >= n) {
                         break;
                     }
-                    int nextGrid = grid[i][j];
-                    int nextDir1 = STREETS[nextGrid][0], nextDir2 = STREETS[nextGrid][1];
+                    int nextDir1 = STREETS[grid[i][j]][0], nextDir2 = STREETS[grid[i][j]][1];
                     //下一个单元格的某一个方向能与当前单元格向外延展方向匹配，那么下一个向外延展方向就是另一个方向
                     if ((nextDir1 + 2) % 4 == currentDir) {
                         currentDir = nextDir2;
