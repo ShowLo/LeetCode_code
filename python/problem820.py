@@ -4,4 +4,4 @@ class Solution:
         for word in words:
             for i in range(1, len(word)):
                 wordSet.discard(word[i:])
-        return sum([len(word) + 1 for word in wordSet])
+        return sum(len(word) + 1 for word in wordSet)
