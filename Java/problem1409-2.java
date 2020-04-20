@@ -26,7 +26,7 @@ class Solution {
 
     public int[] processQueries(int[] queries, int m) {
         int n = queries.length;
-        // 用一个树状数组，数组从1-i的前缀和getSum(i)代表在i前面有多少个数（包括自身）
+        // 用一个树状数组，数组从1-i的区间和getSum(i)代表在i前面有多少个数（包括自身）
         // 所以一个数对应到P中的真实索引就是getSum(i)-1
         tree = new int[n + m + 1];
         // P中的1-m这m个数到其在树状数组中索引的一个映射
