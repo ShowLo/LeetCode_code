@@ -6,7 +6,7 @@ class Solution {
     }
 
     private static int random_partition(int[] arr, int left, int right) {
-        int idx = left + (int)Math.random() % (right - left + 1);
+        int idx = left + (int)(Math.random() * (right - left + 1));
         swap(arr, idx, right);
         return partition(arr, left, right);
     }
