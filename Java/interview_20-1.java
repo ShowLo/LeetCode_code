@@ -8,7 +8,7 @@ class Solution {
         if (chars[start] == '+' || chars[start] == '-') {
             return isDigits(start + 1, end, prev);
         }
-        if (!(Character.isDigit(chars[start]) || (chars[start] == '.' && end - start >= 1))) {
+        if (!((chars[start] >= '0' && chars[start] <= '9') || (chars[start] == '.' && end - start >= 1))) {
             return false;
         }
         boolean findPoint = prev == false;
@@ -21,7 +21,7 @@ class Solution {
                     findPoint = true;
                 }
             }
-            else if (!Character.isDigit(chars[i])) {
+            else if (!(chars[i] >= '0' && chars[i] <= '9')) {
                 return false;
             }
         }
