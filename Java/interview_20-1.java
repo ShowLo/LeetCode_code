@@ -1,15 +1,19 @@
 class Solution {
-    private boolean isDigits(String num, boolean prev) {
-        char[] nums = num.toCharArray();
-        if (nums.length == 0) {
+    private char[] chars;
+
+    private boolean isDigits(int start, int end, boolean prev) {
+        if (start >= chars.length || end >= chars.length || start > end) {
             return false;
         }
-        if (!(Character.isDigit(nums[0]) || (nums[0] == '.' && nums.length > 1))) {
+        if (chars[start] == '+' || chars[start] == '-') {
+            return isDigits(start + 1, end, prev);
+        }
+        if (!(Character.isDigit(chars[start]) || (chars[start] == '.' && end - start >= 1))) {
             return false;
         }
         boolean findPoint = prev == false;
-        for (char c : nums) {
-            if (c == '.') {
+        for (int i = start; i <= end; ++i) {
+            if (chars[i] == '.') {
                 if (findPoint) {
                     return false;
                 }
@@ -17,7 +21,7 @@ class Solution {
                     findPoint = true;
                 }
             }
-            else if (!Character.isDigit(c)) {
+            else if (!Character.isDigit(chars[i])) {
                 return false;
             }
         }
@@ -25,41 +29,20 @@ class Solution {
     }
     
     public boolean isNumber(String s) {
-        s = s.trim();
-        if (s.length() == 0 || s.charAt(0) == 'e' || s.charAt(s.length() - 1) == 'e') {
+        chars = s.strip().toCharArray();
+        if (chars.length == 0) {
             return false;
         }
-        String[] nums = s.split("e");
-        if (nums.length > 2 || nums.length == 0) {
-            return false;
+        int end1 = 0;
+        while (end1 < chars.length && chars[end1] != 'e' && chars[end1] != 'E') {
+            ++end1;
         }
-        if (nums.length == 1) {
-            if (s.charAt(0) == '+' || s.charAt(0) == '-') {
-                return isDigits(nums[0].substring(1), true);
-            }
-            else {
-                return isDigits(nums[0], true);
-            }
+        --end1;
+        if (end1 == chars.length - 1) {
+            return isDigits(0, end1, true);
         }
         else {
-            if (nums[0].length() == 0 || nums[1].length() == 0) {
-                return false;
-            }
-            boolean prev;
-            if (nums[0].charAt(0) == '+' || nums[0].charAt(0) == '-') {
-                prev = isDigits(nums[0].substring(1), true);
-            }
-            else {
-                prev = isDigits(nums[0], true);
-            }
-            boolean behind;
-            if (nums[1].charAt(0) == '+' || nums[1].charAt(0) == '-') {
-                behind = isDigits(nums[1].substring(1), false);
-            }
-            else {
-                behind = isDigits(nums[1], false);
-            }
-            return prev && behind;
+            return isDigits(0, end1, true) && isDigits(end1 + 2, chars.length - 1, false);
         }
     }
 }
