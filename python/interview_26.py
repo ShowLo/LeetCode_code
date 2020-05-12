@@ -17,6 +17,4 @@ class Solution:
             return False
         if A is None or B is None:
             return False
-        if A.val == B.val and isSame(A.left, B.left) and isSame(A.right, B.right):
-            return True
-        return self.isSubStructure(A.left, B) or self.isSubStructure(A.right, B)
+        return isSame(A, B) or self.isSubStructure(A.left, B) or self.isSubStructure(A.right, B)
