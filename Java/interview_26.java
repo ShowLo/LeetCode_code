@@ -27,9 +27,6 @@ class Solution {
         if (B == null || A == null) {
             return false;
         }
-        if (A.val == B.val && isSame(A.left, B.left) && isSame(A.right, B.right)) {
-            return true;
-        }
-        return isSubStructure(A.left, B) || isSubStructure(A.right, B);
+        return isSame(A, B) || isSubStructure(A.left, B) || isSubStructure(A.right, B);
     }
 }
