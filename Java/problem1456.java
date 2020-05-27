@@ -8,13 +8,11 @@ class Solution {
         index['o' - 'a'] = 3;
         index['u' - 'a'] = 4;
         char[] chars = s.toCharArray();
-        int[] count = new int[5];
         int left = 0, right = 0;
         int sum = 0;
         for (; right < k; ++right) {
             int idx = index[chars[right] - 'a'];
             if (idx!= -1) {
-                ++count[idx];
                 ++sum;
             }
         }
@@ -23,16 +21,10 @@ class Solution {
             int leftIdx = index[chars[left] - 'a'];
             int rightIdx = index[chars[right] - 'a'];
             
-            if (leftIdx != -1 && rightIdx != -1) {
-                ++count[rightIdx];
-                --count[leftIdx];
-            }
-            else if (leftIdx != -1) {
-                --count[leftIdx];
+            if (leftIdx != -1 && rightIdx == -1) {
                 --sum;
             }
-            else if (rightIdx != -1) {
-                ++count[rightIdx];
+            else if (rightIdx != -1 && leftIdx == -1) {
                 ++sum;
                 result = Math.max(result, sum);
             }
