@@ -22,7 +22,7 @@ class Codec:
         while nodeCount > 0:
             node = queue.popleft()
             if not node:
-                res.append('None')
+                res.append('null')
             else:
                 nodeCount -= 1
                 res.append(str(node.val))
@@ -32,7 +32,7 @@ class Codec:
                 queue.append(node.right)
                 if node.right:
                     nodeCount += 1 
-        return ','.join(res)
+        return '[' + ','.join(res) + ']'
 
     def deserialize(self, data):
         """Decodes your encoded data to tree.
@@ -42,20 +42,20 @@ class Codec:
         """
         if data == '[]':
             return None
-        datas = data.split(',')
+        datas = data[1 : -1].split(',')
         n = len(datas)
         queue = collections.deque()
-        root = TreeNode(eval(datas[0]))
+        root = TreeNode(int(datas[0]))
         queue.append(root)
         idx = 1
         while idx < n:
             node = queue.popleft()
-            if eval(datas[idx]) is not None:
-                node.left = TreeNode(eval(datas[idx]))
+            if datas[idx] != 'null':
+                node.left = TreeNode(int(datas[idx]))
                 queue.append(node.left)
             idx += 1
-            if idx < n and eval(datas[idx]) is not None:
-                node.right = TreeNode(eval(datas[idx]))
+            if idx < n and datas[idx] != 'null':
+                node.right = TreeNode(int(datas[idx]))
                 queue.append(node.right)
             idx += 1
         return root
