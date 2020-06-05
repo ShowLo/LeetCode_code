@@ -16,19 +16,7 @@ class Solution {
         return res;
     }
 
-    private int countColor(int[] item) {
-        // 计算盒子里有多少种颜色的球
-        int res = 0;
-        for (int i : item) {
-            if (i > 0) {
-                ++res;
-            }
-        }
-        return res;
-    }
-
-    private boolean dfs(int idx, int leftNum) {
-        int leftColor = countColor(left), rightColor = countColor(right);
+    private boolean dfs(int idx, int leftNum, int leftColor, int rightColor) {
         if (leftColor > rightColor || leftNum > n) {
             // 剪枝
             return false;
@@ -49,7 +37,15 @@ class Solution {
         for (int i = 0; i <= right[idx] && cont; ++i) {
             left[idx] += i;
             right[idx] -= i;
-            cont = dfs(idx + 1, leftNum + i);
+            if (i == 0) {
+                cont = dfs(idx + 1, leftNum + i, leftColor, rightColor);
+            }
+            else if (right[idx] == 0) {
+                cont = dfs(idx + 1, leftNum + i, leftColor + 1, rightColor - 1);
+            }
+            else {
+                cont = dfs(idx + 1, leftNum + i, leftColor + 1, rightColor);
+            }
             // 回溯
             left[idx] -= i;
             right[idx] += i;
@@ -73,7 +69,7 @@ class Solution {
         }
         n /= 2;
         result = 0.0;
-        dfs(0, 0);
+        dfs(0, 0, 0, balls.length);
         double totalCount = factorial[n * 2];
         for (int b : balls) {
             totalCount /= factorial[b];
