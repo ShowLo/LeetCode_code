@@ -16,7 +16,7 @@ class Solution {
         int n = m / 2;
         // dp[h][i][j]: 对于前h种颜色的球，第一个盒子共i个球，且颜色数比第二个盒子的多j-k种的排列数
         double[][][] dp = new double[k][n + 1][k * 2 + 1];
-        for (int i = 0; i <= n; ++i) {
+        for (int i = 0; i <= Math.min(n, balls[0]); ++i) {
             int t = i == 0 ? -1 : (i == balls[0] ? 1 : 0);
             t += k;
             dp[0][i][t] = 1.0;
