@@ -7,20 +7,26 @@ class Solution {
 
     private static int random_partition(int[] arr, int left, int right) {
         int idx = left + (int)(Math.random() * (right - left + 1));
-        swap(arr, idx, right);
+        swap(arr, left, idx);
         return partition(arr, left, right);
     }
 
     private static int partition(int[] arr, int left, int right) {
-        int pivot = arr[right];
-        int i = left - 1;
-        for (int j = left; j < right; ++j) {
-            if (arr[j] < pivot) {
-                swap(arr, ++i, j);
+        int pivot = arr[left];
+        int i = left, j = right;
+        while (i < j) {
+            while (i < j && arr[j] > pivot) {
+                --j;
+            }
+            while (i < j && arr[i] <= pivot) {
+                ++i;
+            }
+            if (i < j) {
+                swap(arr, i, j);
             }
         }
-        swap(arr, ++i, right);
-        return i;
+        swap(arr, left, j);
+        return j;
     }
 
     /*
