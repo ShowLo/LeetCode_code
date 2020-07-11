@@ -15,14 +15,12 @@ class Solution {
                     if (zeros.size() == 0 || zeros.getLast() < prev) {
                         return new int[0];
                     }
+                    int day = -1;
                     // 找到第一个可以抽去第rains[i]个湖的水的日子
-                    for (int idx = 0; idx < zeros.size(); ++idx) {
-                        if (zeros.get(idx) > prev) {
-                            result[zeros.get(idx)] = rains[i];
-                            zeros.remove(idx);
-                            break;
-                        }
-                    }
+                    Iterator<Integer> iter = zeros.iterator();
+                    while ((day = iter.next()) <= prev);
+                    iter.remove();
+                    result[day] = rains[i];
                 }
                 pos.put(rains[i], i);
             }
