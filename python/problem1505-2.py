@@ -33,9 +33,6 @@ class Solution:
                     position[j].pop()
                     res.append(str(j))
                     segmentTree.update(originIdx + 1, 1)
-                    if needCount == 0:
-                        # 自己跟自己交换
-                        i += 1
                     break
         return ''.join(res)
 
