@@ -2,7 +2,6 @@ class Solution:
     
     def minInteger(self, num: str, k: int) -> str:
         n = len(num)
-        digits = [str(i) for i in range(10)]
         # 线段树上0代表未被换到前面去，1代表被换了
         # 所以getSum得到的就是当前位置前面被换过了的数量
         # 等价于未处理字符串的开头位置
